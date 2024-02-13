@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'gender.dart'; // Import the second_page.dart file
-
-//Put all images in the imgs folder in the directory
+import 'category.dart';
+import 'closet.dart'; // Import the second_page.dart file
 
 void main() {
   runApp(MyApp());
@@ -35,15 +34,30 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor:
-            Color.fromARGB(255, 238, 2, 187), // Changed the AppBar color
+        backgroundColor: Color.fromARGB(255, 238, 2, 187), // Changed the AppBar color
       ),
       drawer: Drawer(
-          // The rest of the drawer code goes here.
+        child: Container(
+          color: Color.fromARGB(255, 238, 2, 187), // Set the background color of the drawer to the same color as the AppBar
+          child: Stack(
+            children: <Widget>[
+              // The rest of the drawer code goes here.
+              Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Text(
+                    'We are venom!',
+                    style: TextStyle(color: Colors.white), // Set the font color of the text to white
+                  ),
+                ),
+              ),
+            ],
           ),
+        ),
+      ),
       body: Column(
-        mainAxisAlignment:
-            MainAxisAlignment.start, // Align items at the start of the column
+        mainAxisAlignment: MainAxisAlignment.start, // Align items at the start of the column
         children: [
           Image.asset('imgs/logo_trial.png'), // Homescreen logo
           Container(
@@ -53,8 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => Gender()), // Use the Gender class
+                  MaterialPageRoute(builder: (context) => Category()), // Use the Gender class
                 );
               },
               child: Text('TRY ON!'),
@@ -66,16 +79,18 @@ class _MyHomePageState extends State<MyHomePage> {
             height: 60, // Set the height of the button
             child: ElevatedButton(
               onPressed: () {
-                // Add your onPressed code here!
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Closet()), // Use the Gender class
+                );
               },
               child: Text('YOUR CLOSET'),
             ),
           ),
           Spacer(), // Added a Spacer to push the text to the bottom
           Padding(
-            padding: EdgeInsets.all(
-                10), // Added a Padding to create a gap between the text and the edge of the screen
-            child: Text('Welcome one and all!!'),
+            padding: EdgeInsets.all(10), // Added a Padding to create a gap between the text and the edge of the screen
+            child: Text('Play Minecraft!'),
           ),
         ],
       ),

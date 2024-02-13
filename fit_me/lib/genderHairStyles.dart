@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'mensClothingCat.dart';
-import 'womenClothingCat.dart';
+import 'mensHairStyleCat.dart';
+import 'womensHairStyleCat.dart';
 
-class Gender extends StatelessWidget {
+class GenderHairStyles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,13 +20,13 @@ class Gender extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          MensClothingCat()), // Use the MensClothingCat class
+                          MensHairStyleCat()), // Use the MensClothingCat class
                 );
               },
               child: Column(
                 children: <Widget>[
                   Image.asset(
-                    'imgs/men.jpg',
+                    'imgs/menHairStyle.jpg',
                     width: 300,
                     height: 300,
                   ),
@@ -45,13 +45,13 @@ class Gender extends StatelessWidget {
                   context,
                   MaterialPageRoute(
                       builder: (context) =>
-                          WomenensClothingCat()), // Use the MensClothingCat class
+                          WomesHairStyleCat()), // Use the MensClothingCat class
                 );
               },
               child: Column(
                 children: <Widget>[
                   Image.asset(
-                    'imgs/women.jpg',
+                    'imgs/womenHairStyle.jpg',
                     width: 300,
                     height: 300,
                   ),
