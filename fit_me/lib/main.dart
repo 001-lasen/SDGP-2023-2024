@@ -35,13 +35,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
-        backgroundColor: Color.fromARGB(255, 238, 2, 187), // Changed the AppBar color
+        backgroundColor:
+            Color.fromARGB(255, 238, 2, 187), // Changed the AppBar color
       ),
       drawer: Drawer(
-        // The rest of the drawer code goes here.
-      ),
+          // The rest of the drawer code goes here.
+          ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start, // Align items at the start of the column
+        mainAxisAlignment:
+            MainAxisAlignment.start, // Align items at the start of the column
         children: [
           Image.asset('imgs/logo_trial.png'), // Homescreen logo
           Container(
@@ -51,7 +53,8 @@ class _MyHomePageState extends State<MyHomePage> {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => Gender()), // Use the Gender class
+                  MaterialPageRoute(
+                      builder: (context) => Gender()), // Use the Gender class
                 );
               },
               child: Text('TRY ON!'),
@@ -70,8 +73,9 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Spacer(), // Added a Spacer to push the text to the bottom
           Padding(
-            padding: EdgeInsets.all(10), // Added a Padding to create a gap between the text and the edge of the screen
-            child: Text('Welcome to the dark side!!'),
+            padding: EdgeInsets.all(
+                10), // Added a Padding to create a gap between the text and the edge of the screen
+            child: Text('Welcome one and all!!'),
           ),
         ],
       ),
