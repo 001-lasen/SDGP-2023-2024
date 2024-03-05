@@ -1,4 +1,3 @@
-// mens_clothing_cat.dart
 import 'package:flutter/material.dart';
 
 class MensClothingCat extends StatelessWidget {
@@ -9,48 +8,47 @@ class MensClothingCat extends StatelessWidget {
         title: Text('Men\'s Clothing'),
         backgroundColor: Color.fromARGB(255, 238, 2, 187),
       ),
-      body: SingleChildScrollView( // Make the page scrollable
+      body: SingleChildScrollView(
         child: Center(
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center, // Align items at the center of the column
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                width: double.infinity, // Make the button width the width of the screen
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('1'),
-                ),
-              ),
-              Container(
-                width: double.infinity, // Make the button width the width of the screen
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('2'),
-                ),
-              ),
-              Container(
-                width: double.infinity, // Make the button width the width of the screen
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('3'),
-                ),
-              ),
-              Container(
-                width: double.infinity, // Make the button width the width of the screen
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('4'),
-                ),
-              ),
-              Container(
-                width: double.infinity, // Make the button width the width of the screen
-                child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('5'),
-                ),
-              ),
+              _categoryButton("Hoodies", "imgs/hoodies.jpeg"),
+              _categoryButton("Trousers", "imgs/trousers.jpeg"),
+              _categoryButton("Shirts", "imgs/shirts.jpeg"),
+              _categoryButton("Jackets", "imgs/jackets.jpeg"),
+              _categoryButton("Suits", "imgs/suits.jpeg"),
             ],
           ),
+        ),
+      ),
+    );
+  }
+
+  Widget _categoryButton(String categoryName, String imagePath) {
+    return Container(
+      width: double.infinity,
+      child: ElevatedButton(
+        onPressed: () {
+          // Handle button press
+        },
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.all(16.0),
+          backgroundColor: Colors.white, // Set button background color
+        ),
+        child: Row(
+          children: [
+            Image.asset(
+              imagePath,
+              width: 100, // Adjust image width as needed
+              height: 100, // Adjust image height as needed
+            ),
+            SizedBox(width: 100), // Add some spacing between image and text
+            Text(
+              categoryName,
+              style: TextStyle(fontSize: 20, color: Colors.black),
+            ),
+          ],
         ),
       ),
     );

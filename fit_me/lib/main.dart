@@ -37,23 +37,68 @@ class _MyHomePageState extends State<MyHomePage> {
         backgroundColor: Color.fromARGB(255, 238, 2, 187), // Changed the AppBar color
       ),
       drawer: Drawer(
-        child: Container(
-          color: Color.fromARGB(255, 238, 2, 187), // Set the background color of the drawer to the same color as the AppBar
-          child: Stack(
-            children: <Widget>[
-              // The rest of the drawer code goes here.
-              Align(
-                alignment: FractionalOffset.bottomCenter,
-                child: Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Text(
-                    'We are venom!',
-                    style: TextStyle(color: Colors.white), // Set the font color of the text to white
-                  ),
-                ),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 238, 2, 187),
               ),
-            ],
-          ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Image.asset(
+                    'imgs/logo.png',
+                    width: 50, // Adjust width of the logo
+                    height: 50, // Adjust height of the logo
+                  ),
+                  SizedBox(height: 10), // Add spacing between logo and user name
+                  Text(
+                    'User Name',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 18,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            ListTile(
+              leading: Image.asset('imgs/viewprofile.png', width: 24, height: 24),
+              title: Text('View Profile'),
+              onTap: () {
+                // Add functionality for view profile
+              },
+            ),
+            ListTile(
+              leading: Image.asset('imgs/tryon.png', width: 24, height: 24),
+              title: Text('Try On History'),
+              onTap: () {
+                // Add functionality for try on history
+              },
+            ),
+            ListTile(
+              leading: Image.asset('imgs/aboutus.png', width: 24, height: 24),
+              title: Text('About Us'),
+              onTap: () {
+                // Add functionality for about us
+              },
+            ),
+            ListTile(
+              leading: Image.asset('imgs/settings.png', width: 24, height: 24),
+              title: Text('Settings'),
+              onTap: () {
+                // Add functionality for settings
+              },
+            ),
+            ListTile(
+              leading: Image.asset('imgs/helpandsupport.jpeg', width: 24, height: 24),
+              title: Text('Support'),
+              onTap: () {
+                // Add functionality for support
+              },
+            ),
+          ],
         ),
       ),
       body: Column(
