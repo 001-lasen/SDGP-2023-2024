@@ -5,8 +5,8 @@ class WomesHairStyleCat extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        //title: Text('Men\'s Clothing'),
-        //backgroundColor: Color.fromARGB(255, 238, 2, 187),
+        title: Text('Women\'s Clothing'),
+        backgroundColor: Color.fromARGB(255, 238, 2, 187),
       ),
       body: SingleChildScrollView(
         child: Center(

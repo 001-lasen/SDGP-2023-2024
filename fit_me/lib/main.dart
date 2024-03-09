@@ -135,7 +135,7 @@ class _MyHomePageState extends State<MyHomePage> {
           Spacer(), // Added a Spacer to push the text to the bottom
           Padding(
             padding: EdgeInsets.all(10), // Added a Padding to create a gap between the text and the edge of the screen
-            child: Text('Play Minecraft!'),
+            child: Text('This app is not a joke, it is the entire circus!'),
           ),
         ],
       ),
