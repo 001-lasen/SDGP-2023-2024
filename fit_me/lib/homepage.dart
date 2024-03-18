@@ -84,44 +84,54 @@ class _MyHomePageState extends State<MyHomePage> {
           ],
         ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.start, // Align items at the start of the column
-        children: [
-          Image.asset('imgs/logo_trial.png'), // Homescreen logo
-          Container(
-            width: 200, // Set the width of the button
-            height: 60, // Set the height of the button
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Category()), // Use the Gender class
-                );
-              },
-              child: Text('TRY ON!'),
+      body: Center (
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start, // Align items at the start of the column
+          children: [
+            Image.asset(
+              'imgs/logo_trial.png',
+              width: 300,
+              height: 350,
+            ), // Homescreen logo
+            SizedBox(height: 25), // Change the space between the logo and the buttons here
+            Container(
+              width: 200, // Set the width of the button
+              height: 60, // Set the height of the button
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Category()), // Use the Gender class
+                  );
+                },
+                child: Text('TRY ON!'),
+              ),
             ),
-          ),
-          SizedBox(height: 100), // Change the space between the buttons here
-          Container(
-            width: 200, // Set the width of the button
-            height: 60, // Set the height of the button
-            child: ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Closet()), // Use the Gender class
-                );
-              },
-              child: Text('YOUR CLOSET'),
+            SizedBox(height: 50), // Change the space between the buttons here
+            Container(
+              width: 200, // Set the width of the button
+              height: 60, // Set the height of the button
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Closet()), // Use the Gender class
+                  );
+                },
+                child: Text('YOUR CLOSET'),
+              ),
             ),
-          ),
-          Spacer(), // Added a Spacer to push the text to the bottom
-          Padding(
-            padding: EdgeInsets.all(10), // Added a Padding to create a gap between the text and the edge of the screen
-            child: Text('This app is not a joke, it is the entire circus!'),
-          ),
-        ],
-      ),
+            Spacer(), // Added a Spacer to push the text to the bottom
+            Padding(
+              padding: EdgeInsets.all(10), // Added a Padding to create a gap between the text and the edge of the screen
+              child: Text(
+                'I spent half an hour changing the size of the wrong image!!!',
+                textAlign: TextAlign.center,
+              ),
+            ),
+          ],
+        ),
+      )
     );
   }
 }

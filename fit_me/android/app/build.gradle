@@ -41,6 +41,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            def appName = "FitMe!"
+            def version = variant.versionName
+            def variantName = variant.name
+            def newApkName = "${appName}-${version}-${variantName}.apk"
+
+            output.outputFileName = newApkName
+        }
+    }
 }
 
 flutter {
