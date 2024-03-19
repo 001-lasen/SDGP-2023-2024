@@ -14,7 +14,7 @@ class MensHairStyleCat extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _categoryButton("Crew Cut Fade", "imgs/crew cut_fade.jpeg", context),
+              _categoryButton("Crew Cut Fade", "imgs/crew_cut_fade.jpeg", context),
               SizedBox(height: 15),
               _categoryButton("Taper Cut", "imgs/taper_cut.jpeg", context),
               SizedBox(height: 15),
