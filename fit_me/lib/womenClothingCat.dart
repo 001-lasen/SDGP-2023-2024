@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import 'BlouseScreen.dart'; // Import the BlouseScreen.dart file
+import 'JeansScreen.dart'; // Import the JeansScreen.dart file
+
 class WomenensClothingCat extends StatefulWidget {
   @override
   _WomenensClothingCatState createState() => _WomenensClothingCatState();
@@ -20,8 +23,8 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
               Expanded(
                 child: Center(
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5, // Adjust the width of the search bar
-                    padding: EdgeInsets.symmetric(horizontal:15),
+                    width: MediaQuery.of(context).size.width * 0.5,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30),
@@ -35,7 +38,7 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
                       decoration: InputDecoration(
                         hintText: 'Search categories...',
                         border: InputBorder.none,
-                        icon: Icon(Icons.search, size: 20), // Adjust the size of the search icon
+                        icon: Icon(Icons.search, size: 20),
                       ),
                     ),
                   ),
@@ -50,16 +53,21 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _categoryButton("Blouses", "imgs/blouse.jpeg"),
+              _categoryButton("Blouses", "imgs/blouse.jpeg", () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => BlouseScreen()), // Navigate to BlouseScreen
+                );
+              }),
               SizedBox(height: 15),
-              _categoryButton("Denims", "imgs/denim.jpeg"),
+              _categoryButton("Jeans", "imgs/jean.jpeg", () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => JeansScreen()), // Navigate to JeansScreen
+                );
+              }),
               SizedBox(height: 15),
-              _categoryButton("Dresses", "imgs/dress.jpeg"),
-              SizedBox(height: 15),
-              _categoryButton("Skirts", "imgs/skirt.jpeg"),
-              SizedBox(height: 15),
-              _categoryButton("T-shirts", "imgs/tshirt.jpeg"),
-              SizedBox(height: 15),
+              // Add other category buttons here
             ],
           ),
         ),
@@ -67,21 +75,19 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
     );
   }
 
-  Widget _categoryButton(String categoryName, String imagePath) {
+  Widget _categoryButton(String categoryName, String imagePath, VoidCallback onPressed) {
     if (categoryName.toLowerCase().contains(searchText.toLowerCase()) || searchText.isEmpty) {
       return Container(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: () {
-            // Handle button press
-          },
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.all(16.0),
-            backgroundColor: Colors.white, // Set button background color
+            backgroundColor: Colors.white,
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align children to start and end
-            crossAxisAlignment: CrossAxisAlignment.center, // Align children vertically centered
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: Center(
@@ -91,20 +97,17 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8.0), // Adjust the right padding as needed
-              ),
               Image.asset(
                 imagePath,
-                width: 100, // Adjust image width as needed
-                height: 100, // Adjust image height as needed
+                width: 100,
+                height: 100,
               ),
             ],
           ),
         ),
       );
     } else {
-      return SizedBox(); // Return an empty SizedBox if the category doesn't match the search
+      return SizedBox();
     }
   }
 }

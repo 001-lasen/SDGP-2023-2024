@@ -20,8 +20,8 @@ class _MensClothingCatState extends State<MensClothingCat> {
               Expanded(
                 child: Center(
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.8, // Adjust the width of the search bar
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    width: MediaQuery.of(context).size.width * 0.5, // Adjust the width of the search bar
+                    padding: EdgeInsets.symmetric(horizontal: 15),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(30),
@@ -68,37 +68,41 @@ class _MensClothingCatState extends State<MensClothingCat> {
   }
 
   Widget _categoryButton(String categoryName, String imagePath) {
-    return Container(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          // Handle button press
-        },
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.all(16.0),
-          backgroundColor: Colors.white, // Set button background color
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align children to start and end
-          crossAxisAlignment: CrossAxisAlignment.center, // Align children vertically centered
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  categoryName,
-                  style: TextStyle(fontSize: 20, color: Colors.black),
+    if (categoryName.toLowerCase().contains(searchText.toLowerCase()) || searchText.isEmpty) {
+      return Container(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () {
+            // Handle button press
+          },
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(16.0),
+            backgroundColor: Colors.white, // Set button background color
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align children to start and end
+            crossAxisAlignment: CrossAxisAlignment.center, // Align children vertically centered
+            children: [
+              Expanded(
+                child: Center(
+                  child: Text(
+                    categoryName,
+                    style: TextStyle(fontSize: 20, color: Colors.black),
+                  ),
                 ),
               ),
-            ),
-            Image.asset(
-              imagePath,
-              width: 100, // Adjust image width as needed
-              height: 100, // Adjust image height as needed
-            ),
-          ],
+              Image.asset(
+                imagePath,
+                width: 100, // Adjust image width as needed
+                height: 100, // Adjust image height as needed
+              ),
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      return SizedBox(); // Return an empty SizedBox if the category doesn't match the search
+    }
   }
 }
 
