@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 
-class SkirtScreen extends StatelessWidget {
+class DressScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Skirts'),
+        title: Text('Dresses'),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _skirtsButton(context, "Denim Skirt", "imgs/denimSkirt.jpeg"),
+              _dressesButton(context, "Shirt Dress", "imgs/shirtdress.jpeg"),
               SizedBox(height: 15),
-              _skirtsButton(context, "Ballerina Skirt", "imgs/ballerina.jpeg"),
+              _dressesButton(context, "Mini Dress", "imgs/minidress.jpeg"),
               SizedBox(height: 15),
-              _skirtsButton(context, "Box Pleat Skirt", "imgs/boxpleat.jpeg"),
+              _dressesButton(context, "Tube Dress", "imgs/tubedress.jpeg"),
               SizedBox(height: 15),
-              _skirtsButton(context, "Flared Skirt", "imgs/flared.jpeg"),
+              _dressesButton(context, "Maxi Dress", "imgs/maxidress.jpeg"),
               SizedBox(height: 15),
-              _skirtsButton(context, "Mini Skirt", "imgs/miniSkirt.jpeg"),
+              _dressesButton(context, "Blazer Dress", "imgs/blazerdress.jpeg"),
               SizedBox(height: 15),
             ],
           ),
@@ -29,7 +29,7 @@ class SkirtScreen extends StatelessWidget {
     );
   }
 
-  Widget _skirtsButton(BuildContext context, String skirtName, String imagePath) {
+  Widget _dressesButton(BuildContext context, String dressName, String imagePath) {
     return Container(
       width: double.infinity,
       child: ElevatedButton(
@@ -47,7 +47,7 @@ class SkirtScreen extends StatelessWidget {
             Expanded(
               child: Center(
                 child: Text(
-                  skirtName,
+                  dressName,
                   style: TextStyle(fontSize: 20, color: Colors.black),
                 ),
               ),
@@ -66,6 +66,6 @@ class SkirtScreen extends StatelessWidget {
 
 void main() {
   runApp(MaterialApp(
-    home: SkirtScreen(),
+    home: DressScreen(),
   ));
 }

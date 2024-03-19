@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
-import 'BlouseScreen.dart'; // Import the BlouseScreen.dart file
-import 'JeansScreen.dart'; // Import the JeansScreen.dart file
+import 'BlouseScreen.dart';
+import 'JeansScreen.dart';
+import 'SkirtScreen.dart';
+import 'DressScreen.dart'; // Import the DressScreen.dart file
 
 class WomenensClothingCat extends StatefulWidget {
   @override
@@ -64,6 +66,20 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => JeansScreen()), // Navigate to JeansScreen
+                );
+              }),
+              SizedBox(height: 15),
+              _categoryButton("Skirts", "imgs/skirt.jpeg", () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => SkirtScreen()), // Navigate to SkirtScreen
+                );
+              }),
+              SizedBox(height: 15),
+              _categoryButton("Dresses", "imgs/dress.jpeg", () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => DressScreen()), // Navigate to DressScreen
                 );
               }),
               SizedBox(height: 15),
