@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'BlouseScreen.dart';
 import 'JeansScreen.dart';
 import 'SkirtScreen.dart';
-import 'DressScreen.dart'; // Import the DressScreen.dart file
+import 'DressScreen.dart';
 
 class WomenensClothingCat extends StatefulWidget {
   @override
@@ -18,43 +18,27 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 238, 2, 187),
-        flexibleSpace: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
+        title: Text('Women\'s Clothing Categories'), // Set the title to display the page name
+      ),
+      body: SingleChildScrollView( // Wrap your ListView with SingleChildScrollView
+        child: Padding(
+          padding: const EdgeInsets.all(10.0), // Add padding to create space between the page name and the buttons
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Expanded(
-                child: Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          searchText = value;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'Search categories...',
-                        border: InputBorder.none,
-                        icon: Icon(Icons.search, size: 20),
-                      ),
-                    ),
-                  ),
+              TextField(
+                onChanged: (value) {
+                  setState(() {
+                    searchText = value;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Search categories...',
+                  prefixIcon: Icon(Icons.search),
+                  border: OutlineInputBorder(),
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+              SizedBox(height: 15),
               _categoryButton("Blouses", "imgs/blouse.jpeg", () {
                 Navigator.push(
                   context,
@@ -92,34 +76,31 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
   }
 
   Widget _categoryButton(String categoryName, String imagePath, VoidCallback onPressed) {
-    if (categoryName.toLowerCase().contains(searchText.toLowerCase()) || searchText.isEmpty) {
-      return Container(
-        width: double.infinity,
-        child: ElevatedButton(
-          onPressed: onPressed,
-          style: ElevatedButton.styleFrom(
-            padding: EdgeInsets.all(16.0),
-            backgroundColor: Colors.white,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Expanded(
-                child: Center(
-                  child: Text(
-                    categoryName,
-                    style: TextStyle(fontSize: 20, color: Colors.black),
-                  ),
+    if (searchText.isEmpty || categoryName.toLowerCase().contains(searchText.toLowerCase())) {
+      return ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.all(16.0),
+          backgroundColor: Colors.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(
+                  categoryName,
+                  style: TextStyle(fontSize: 20, color: Colors.black),
                 ),
               ),
-              Image.asset(
-                imagePath,
-                width: 100,
-                height: 100,
-              ),
-            ],
-          ),
+            ),
+            Image.asset(
+              imagePath,
+              width: 100,
+              height: 100,
+            ),
+          ],
         ),
       );
     } else {
