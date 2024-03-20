@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'HoodiesScreen.dart';
+
 
 class MensClothingCat extends StatefulWidget {
   @override
@@ -38,14 +40,13 @@ class _MensClothingCatState extends State<MensClothingCat> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _categoryButton("Hoodies", "imgs/hoodies.jpeg"),
-                    SizedBox(height: 15),
-                    _categoryButton("Trousers", "imgs/trousers.jpeg"),
-                    SizedBox(height: 15),
-                    _categoryButton("Shirts", "imgs/shirts.jpeg"),
-                    SizedBox(height: 15),
-                    _categoryButton("Jackets", "imgs/jackets.jpeg"),
-                    SizedBox(height: 15),
+                    _categoryButton("Hoodies", "imgs/hoodies.jpeg", () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => HoodiesScreen()),
+                      );
+                    }),
+                    
                   ],
                 ),
               ),
@@ -56,21 +57,19 @@ class _MensClothingCatState extends State<MensClothingCat> {
     );
   }
 
-  Widget _categoryButton(String categoryName, String imagePath) {
+  Widget _categoryButton(String categoryName, String imagePath, VoidCallback onPressed) {
     if (categoryName.toLowerCase().contains(searchText.toLowerCase()) || searchText.isEmpty) {
       return Container(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: () {
-            // Handle button press
-          },
+          onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.all(16.0),
-            backgroundColor: Colors.white, // Set button background color
+            backgroundColor: Colors.white,
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align children to start and end
-            crossAxisAlignment: CrossAxisAlignment.center, // Align children vertically centered
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Expanded(
                 child: Center(
@@ -82,8 +81,8 @@ class _MensClothingCatState extends State<MensClothingCat> {
               ),
               Image.asset(
                 imagePath,
-                width: 100, // Adjust image width as needed
-                height: 100, // Adjust image height as needed
+                width: 100,
+                height: 100,
               ),
             ],
           ),
