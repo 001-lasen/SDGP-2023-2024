@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'HoodiesScreen.dart';
+import 'TrousersScreen.dart';
 
 
 class MensClothingCat extends StatefulWidget {
@@ -44,6 +45,12 @@ class _MensClothingCatState extends State<MensClothingCat> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => HoodiesScreen()),
+                      );
+                    }),
+                    _categoryButton("Trousers", "imgs/trousers.jpeg", () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => TrousersScreen()),
                       );
                     }),
                     
