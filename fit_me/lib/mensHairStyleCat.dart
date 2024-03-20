@@ -1,19 +1,34 @@
 import 'package:flutter/material.dart';
 import 'itemCard.dart';
 
-class MensHairStyleCat extends StatelessWidget {
+class MensHairStyleCat extends StatefulWidget {
+  @override
+  _MensHairStyleCatState createState() => _MensHairStyleCatState();
+}
+
+class _MensHairStyleCatState extends State<MensHairStyleCat> {
+  TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Men\'s Hair Style'),
         backgroundColor: Color.fromARGB(255, 238, 2, 187),
+        flexibleSpace: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            _buildSearchBar(),
+            SizedBox(height: 4),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              SizedBox(height: 10),
               _categoryButton("Crew Cut Fade", "imgs/crew_cut_fade.jpeg", context),
               SizedBox(height: 15),
               _categoryButton("Taper Cut", "imgs/taper_cut.jpeg", context),
@@ -31,7 +46,37 @@ class MensHairStyleCat extends StatelessWidget {
     );
   }
 
+  Widget _buildSearchBar() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 60),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: TextField(
+        controller: _searchController,
+        onChanged: (value) {
+          setState(() {
+            _searchQuery = value;
+          });
+        },
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          hintText: '     search categories',
+          hintStyle: TextStyle(color: Colors.grey),
+          prefixIcon: Icon(Icons.search, color: Colors.white),
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        ),
+      ),
+    );
+  }
+
   Widget _categoryButton(String categoryName, String imagePath, BuildContext context) {
+    if (_searchQuery.isNotEmpty && !categoryName.toLowerCase().contains(_searchQuery.toLowerCase())) {
+      return SizedBox.shrink(); // Hide the button if it doesn't match the search query
+    }
+
     return Container(
       width: double.infinity,
       child: ElevatedButton(
