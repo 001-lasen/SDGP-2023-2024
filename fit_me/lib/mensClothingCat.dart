@@ -13,56 +13,45 @@ class _MensClothingCatState extends State<MensClothingCat> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 238, 2, 187),
-        flexibleSpace: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child: Row(
-            children: [
-              Expanded(
-                child: Center(
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.5, // Adjust the width of the search bar
-                    padding: EdgeInsets.symmetric(horizontal: 15),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: TextField(
-                      onChanged: (value) {
-                        setState(() {
-                          searchText = value;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'Search categories...',
-                        border: InputBorder.none,
-                        icon: Icon(Icons.search, size: 20), // Adjust the size of the search icon
-                      ),
-                    ),
-                  ),
+        title: Text('Men\'s Clothing Categories'), // Set the title to display the page name
+      ),
+      body: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(10),
+            child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  searchText = value;
+                });
+              },
+              decoration: InputDecoration(
+                hintText: 'Search categories...',
+                prefixIcon: Icon(Icons.search),
+                border: OutlineInputBorder(),
+              ),
+            ),
+          ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _categoryButton("Hoodies", "imgs/hoodies.jpeg"),
+                    SizedBox(height: 15),
+                    _categoryButton("Trousers", "imgs/trousers.jpeg"),
+                    SizedBox(height: 15),
+                    _categoryButton("Shirts", "imgs/shirts.jpeg"),
+                    SizedBox(height: 15),
+                    _categoryButton("Jackets", "imgs/jackets.jpeg"),
+                    SizedBox(height: 15),
+                  ],
                 ),
               ),
-            ],
+            ),
           ),
-        ),
-      ),
-      body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _categoryButton("Hoodies", "imgs/hoodies.jpeg"),
-              SizedBox(height: 15),
-              _categoryButton("Trousers", "imgs/trousers.jpeg"),
-              SizedBox(height: 15),
-              _categoryButton("Shirts", "imgs/shirts.jpeg"),
-              SizedBox(height: 15),
-              _categoryButton("Jackets", "imgs/jackets.jpeg"),
-              SizedBox(height: 15),
-              _categoryButton("Suits", "imgs/suits.jpeg"),
-              SizedBox(height: 15),
-            ],
-          ),
-        ),
+        ],
       ),
     );
   }
