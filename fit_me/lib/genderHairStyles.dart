@@ -62,6 +62,7 @@ class GenderHairStyles extends StatelessWidget {
               ],
             ),
           ),
+          SizedBox(height: 100),
         ],
       ),
     );

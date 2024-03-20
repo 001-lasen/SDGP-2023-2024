@@ -64,6 +64,7 @@ class GenderFashion extends StatelessWidget {
                   ],
                 ),
               ),
+              SizedBox(height: 100),
             ],
           ),
         ),

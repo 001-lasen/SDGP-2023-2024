@@ -13,14 +13,43 @@ class _WomesHairStyleCatState extends State<WomesHairStyleCat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 238, 2, 187),
-        flexibleSpace: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            _buildSearchBar(),
-            SizedBox(height: 4),
-          ],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(110.0),
+        child: AppBar(
+          backgroundColor: Color.fromARGB(255, 238, 2, 187),
+          title: Text('Find your Hairstyle!'),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(68.0),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: TextField(
+                      controller: _searchController,
+                      onChanged: (value) {
+                        setState(() {
+                          _searchQuery = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search hairstyles...',
+                        border: InputBorder.none,
+                        icon: Icon(Icons.search, size: 20),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
       body: SingleChildScrollView(
@@ -29,7 +58,7 @@ class _WomesHairStyleCatState extends State<WomesHairStyleCat> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 10),
-               _categoryButton("Curly Hair", "imgs/curly_hair.jpeg", context),
+              _categoryButton("Curly Hair", "imgs/curly_hair.jpeg", context),
               SizedBox(height: 15),
               _categoryButton("Straight Hair", "imgs/straight_hair.jpeg", context),
               SizedBox(height: 15),
@@ -39,7 +68,8 @@ class _WomesHairStyleCatState extends State<WomesHairStyleCat> {
               SizedBox(height: 15),
               _categoryButton("Butterfly Layer", "imgs/butterfly_layer.jpeg", context),
               SizedBox(height: 1),
-            ],
+            // ignore: unnecessary_null_comparison
+            ].where((widget) => widget != null).toList(), // Filter out null widgets
           ),
         ),
       ),

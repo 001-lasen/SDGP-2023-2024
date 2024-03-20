@@ -13,14 +13,43 @@ class _MensHairStyleCatState extends State<MensHairStyleCat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 238, 2, 187),
-        flexibleSpace: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            _buildSearchBar(),
-            SizedBox(height: 4),
-          ],
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(110.0),
+        child: AppBar(
+          backgroundColor: Color.fromARGB(255, 238, 2, 187),
+          title: Text('Find your Hairstyle!'),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(68.0),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: TextField(
+                      controller: _searchController,
+                      onChanged: (value) {
+                        setState(() {
+                          _searchQuery = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search hairstyles...',
+                        border: InputBorder.none,
+                        icon: Icon(Icons.search, size: 20),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ),
         ),
       ),
       body: SingleChildScrollView(

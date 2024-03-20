@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'HoodiesScreen.dart';
-import 'TrousersScreen.dart';
-
 
 class MensClothingCat extends StatefulWidget {
   @override
@@ -14,69 +11,81 @@ class _MensClothingCatState extends State<MensClothingCat> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 238, 2, 187),
-        title: Text('Men\'s Clothing Categories'), // Set the title to display the page name
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(110.0),
+        child: AppBar(
+          backgroundColor: Color.fromARGB(255, 238, 2, 187),
+          title: Text('Find your category!'),
+          bottom: PreferredSize(
+            preferredSize: Size.fromHeight(68.0),
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Column(
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    padding: EdgeInsets.symmetric(horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                    child: TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          searchText = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search categories...',
+                        border: InputBorder.none,
+                        icon: Icon(Icons.search, size: 20),
+                      ),
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                ],
+              ),
+            ),
+          ),
+        ),
       ),
-      body: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.all(10),
-            child: TextField(
-              onChanged: (value) {
-                setState(() {
-                  searchText = value;
-                });
-              },
-              decoration: InputDecoration(
-                hintText: 'Search categories...',
-                prefixIcon: Icon(Icons.search),
-                border: OutlineInputBorder(),
-              ),
-            ),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _categoryButton("Hoodies", "imgs/hoodies.jpeg"),
+              SizedBox(height: 15),
+              _categoryButton("Trousers", "imgs/trousers.jpeg"),
+              SizedBox(height: 15),
+              _categoryButton("Shirts", "imgs/shirts.jpeg"),
+              SizedBox(height: 15),
+              _categoryButton("Jackets", "imgs/jackets.jpeg"),
+              SizedBox(height: 15),
+              _categoryButton("Suits", "imgs/suits.jpeg"),
+              SizedBox(height: 15),
+            ],
           ),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _categoryButton("Hoodies", "imgs/hoodies.jpeg", () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => HoodiesScreen()),
-                      );
-                    }),
-                    _categoryButton("Trousers", "imgs/trousers.jpeg", () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(builder: (context) => TrousersScreen()),
-                      );
-                    }),
-                    
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
 
-  Widget _categoryButton(String categoryName, String imagePath, VoidCallback onPressed) {
+  Widget _categoryButton(String categoryName, String imagePath) {
     if (categoryName.toLowerCase().contains(searchText.toLowerCase()) || searchText.isEmpty) {
       return Container(
         width: double.infinity,
         child: ElevatedButton(
-          onPressed: onPressed,
+          onPressed: () {
+            // Handle button press
+          },
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.all(16.0),
-            backgroundColor: Colors.white,
+            backgroundColor: Colors.white, // Set button background color
           ),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween, // Align children to start and end
+            crossAxisAlignment: CrossAxisAlignment.center, // Align children vertically centered
             children: [
               Expanded(
                 child: Center(
@@ -88,8 +97,8 @@ class _MensClothingCatState extends State<MensClothingCat> {
               ),
               Image.asset(
                 imagePath,
-                width: 100,
-                height: 100,
+                width: 100, // Adjust image width as needed
+                height: 100, // Adjust image height as needed
               ),
             ],
           ),
