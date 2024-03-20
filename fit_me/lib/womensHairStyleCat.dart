@@ -1,20 +1,35 @@
 import 'package:flutter/material.dart';
 import 'itemCard.dart';
 
-class WomesHairStyleCat extends StatelessWidget {
+class WomesHairStyleCat extends StatefulWidget {
+  @override
+  _WomesHairStyleCatState createState() => _WomesHairStyleCatState();
+}
+
+class _WomesHairStyleCatState extends State<WomesHairStyleCat> {
+  TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Women\'s Hair Style'),
         backgroundColor: Color.fromARGB(255, 238, 2, 187),
+        flexibleSpace: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            _buildSearchBar(),
+            SizedBox(height: 4),
+          ],
+        ),
       ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _categoryButton("Curly Hair", "imgs/curly_hair.jpeg", context),
+              SizedBox(height: 10),
+               _categoryButton("Curly Hair", "imgs/curly_hair.jpeg", context),
               SizedBox(height: 15),
               _categoryButton("Straight Hair", "imgs/straight_hair.jpeg", context),
               SizedBox(height: 15),
@@ -31,7 +46,37 @@ class WomesHairStyleCat extends StatelessWidget {
     );
   }
 
+  Widget _buildSearchBar() {
+    return Container(
+      margin: EdgeInsets.symmetric(horizontal: 60),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(25),
+      ),
+      child: TextField(
+        controller: _searchController,
+        onChanged: (value) {
+          setState(() {
+            _searchQuery = value;
+          });
+        },
+        style: TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          hintText: '     search categories',
+          hintStyle: TextStyle(color: Colors.grey),
+          prefixIcon: Icon(Icons.search, color: Colors.white),
+          border: InputBorder.none,
+          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+        ),
+      ),
+    );
+  }
+
   Widget _categoryButton(String categoryName, String imagePath, BuildContext context) {
+    if (_searchQuery.isNotEmpty && !categoryName.toLowerCase().contains(_searchQuery.toLowerCase())) {
+      return SizedBox.shrink(); // Hide the button if it doesn't match the search query
+    }
+
     return Container(
       width: double.infinity,
       child: ElevatedButton(
