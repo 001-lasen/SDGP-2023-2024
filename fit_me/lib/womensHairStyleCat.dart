@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'itemCard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class WomesHairStyleCat extends StatefulWidget {
   @override
@@ -9,6 +10,9 @@ class WomesHairStyleCat extends StatefulWidget {
 class _WomesHairStyleCatState extends State<WomesHairStyleCat> {
   TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
+  Stream _stream = FirebaseFirestore.instance
+      .collectionGroup("Women's Hair Style")
+      .snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -54,49 +58,22 @@ class _WomesHairStyleCatState extends State<WomesHairStyleCat> {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 10),
-              _categoryButton("Curly Hair", "imgs/curly_hair.jpeg", context),
-              SizedBox(height: 15),
-              _categoryButton("Straight Hair", "imgs/straight_hair.jpeg", context),
-              SizedBox(height: 15),
-              _categoryButton("Wavy Hair", "imgs/wavy_hair.jpeg", context),
-              SizedBox(height: 15),
-              _categoryButton("Kinky Hair", "imgs/kinky_hair.jpeg", context),
-              SizedBox(height: 15),
-              _categoryButton("Butterfly Layer", "imgs/butterfly_layer.jpeg", context),
-              SizedBox(height: 1),
-            // ignore: unnecessary_null_comparison
-            ].where((widget) => widget != null).toList(), // Filter out null widgets
+          child: StreamBuilder(
+            stream: _stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return Column(
+                  children: snapshot.data!.docs.map<Widget>((DocumentSnapshot document) {
+                    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                    return _categoryButton(data['itemName'], data['imagePath'], context);
+                  }).toList(),
+                );
+              } else if (snapshot.hasError) {
+                return Text("Error: ${snapshot.error}");
+              }
+              return Center(child: CircularProgressIndicator());
+            },
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSearchBar() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 60),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: TextField(
-        controller: _searchController,
-        onChanged: (value) {
-          setState(() {
-            _searchQuery = value;
-          });
-        },
-        style: TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          hintText: '     search categories',
-          hintStyle: TextStyle(color: Colors.grey),
-          prefixIcon: Icon(Icons.search, color: Colors.white),
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         ),
       ),
     );
@@ -107,50 +84,53 @@ class _WomesHairStyleCatState extends State<WomesHairStyleCat> {
       return SizedBox.shrink(); // Hide the button if it doesn't match the search query
     }
 
-    return Container(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ItemCard(
-                name: categoryName,
-                imagePath: imagePath,
-              ),
-            ),
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.all(10.0),
-          backgroundColor: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  categoryName,
-                  style: TextStyle(fontSize: 20, color: Colors.black),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.0), // Add vertical space
+      child: Container(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ItemCard(
+                  name: categoryName,
+                  collectionGroup: "Women's Hair Style",
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0), // Add padding around the image
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle, // Change to circle
-                  image: DecorationImage(
-                    image: AssetImage(imagePath),
-                    fit: BoxFit.cover,
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(10.0),
+            backgroundColor: Colors.white,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Center(
+                  child: Text(
+                    categoryName,
+                    style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
                 ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.all(10.0), // Add padding around the image
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle, // Change to circle
+                    image: DecorationImage(
+                      image: AssetImage(imagePath),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

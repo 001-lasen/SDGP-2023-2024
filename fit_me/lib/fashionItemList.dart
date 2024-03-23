@@ -15,7 +15,7 @@ class FashionItemList extends StatelessWidget {
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: FirebaseFirestore.instance
-            .collection(keyword)  // Use keyword to specify the collection group
+            .collectionGroup(keyword)  // Use keyword to specify the collection group
             .snapshots(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
@@ -40,33 +40,36 @@ class FashionItemList extends StatelessWidget {
   }
 
   Widget _categoryButton(String itemName, String imagePath, VoidCallback onPressed) {
-    return ElevatedButton(
-      onPressed: onPressed,
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.all(16.0),
-        backgroundColor: Colors.white,
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            child: Center(
-              child: Text(
-                itemName,
-                style: TextStyle(fontSize: 20, color: Colors.black),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.0), // Add vertical space
+      child: ElevatedButton(
+        onPressed: onPressed,
+        style: ElevatedButton.styleFrom(
+          padding: EdgeInsets.all(16.0),
+          backgroundColor: Colors.white,
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Center(
+                child: Text(
+                  itemName,
+                  style: TextStyle(fontSize: 20, color: Colors.black),
+                ),
               ),
             ),
-          ),
-          ClipOval(
-            child: Image.asset(
-              imagePath,
-              width: 100,
-              height: 100,
-              fit: BoxFit.cover, // Make sure the image covers the entire circle
+            ClipOval(
+              child: Image.asset(
+                imagePath,
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover, // Make sure the image covers the entire circle
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

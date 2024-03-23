@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'itemCard.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class MensHairStyleCat extends StatefulWidget {
   @override
@@ -9,6 +10,8 @@ class MensHairStyleCat extends StatefulWidget {
 class _MensHairStyleCatState extends State<MensHairStyleCat> {
   TextEditingController _searchController = TextEditingController();
   String _searchQuery = '';
+  Stream _stream =
+      FirebaseFirestore.instance.collectionGroup("Men's Hair Style").snapshots();
 
   @override
   Widget build(BuildContext context) {
@@ -54,48 +57,22 @@ class _MensHairStyleCatState extends State<MensHairStyleCat> {
       ),
       body: SingleChildScrollView(
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(height: 10),
-              _categoryButton("Crew Cut Fade", "imgs/crew_cut_fade.jpeg", context),
-              SizedBox(height: 15),
-              _categoryButton("Taper Cut", "imgs/taper_cut.jpeg", context),
-              SizedBox(height: 15),
-              _categoryButton("Spiky Hair", "imgs/spiky_hair.jpeg", context),
-              SizedBox(height: 15),
-              _categoryButton("Quiff Hair", "imgs/quiff.jpeg", context),
-              SizedBox(height: 15),
-              _categoryButton("Messy Curls", "imgs/messy_curls.jpeg", context),
-              SizedBox(height: 1),
-            ],
+          child: StreamBuilder(
+            stream: _stream,
+            builder: (BuildContext context, AsyncSnapshot snapshot) {
+              if (snapshot.hasData) {
+                return Column(
+                  children: snapshot.data!.docs.map<Widget>((DocumentSnapshot document) {
+                    Map<String, dynamic> data = document.data() as Map<String, dynamic>;
+                    return _categoryButton(data['itemName'], data['imagePath'], context);
+                  }).toList(),
+                );
+              } else if (snapshot.hasError) {
+                return Text("Error: ${snapshot.error}");
+              }
+              return Center(child: CircularProgressIndicator());
+            },
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSearchBar() {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 60),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.circular(25),
-      ),
-      child: TextField(
-        controller: _searchController,
-        onChanged: (value) {
-          setState(() {
-            _searchQuery = value;
-          });
-        },
-        style: TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          hintText: '     search categories',
-          hintStyle: TextStyle(color: Colors.grey),
-          prefixIcon: Icon(Icons.search, color: Colors.white),
-          border: InputBorder.none,
-          contentPadding: EdgeInsets.symmetric(vertical: 15, horizontal: 20),
         ),
       ),
     );
@@ -106,50 +83,53 @@ class _MensHairStyleCatState extends State<MensHairStyleCat> {
       return SizedBox.shrink(); // Hide the button if it doesn't match the search query
     }
 
-    return Container(
-      width: double.infinity,
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ItemCard(
-                name: categoryName,
-                imagePath: imagePath,
-              ),
-            ),
-          );
-        },
-        style: ElevatedButton.styleFrom(
-          padding: EdgeInsets.all(10.0),
-          backgroundColor: Colors.white,
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Center(
-                child: Text(
-                  categoryName,
-                  style: TextStyle(fontSize: 20, color: Colors.black),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 10.0), // Add vertical space
+      child: Container(
+        width: double.infinity,
+        child: ElevatedButton(
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => ItemCard(
+                  name: categoryName,
+                  collectionGroup: "Men's Hair Style",
                 ),
               ),
-            ),
-            Padding(
-              padding: EdgeInsets.all(10.0), // Add padding around the image
-              child: Container(
-                width: 100,
-                height: 100,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle, // Change to circle
-                  image: DecorationImage(
-                    image: AssetImage(imagePath),
-                    fit: BoxFit.cover,
+            );
+          },
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(10.0),
+            backgroundColor: Colors.white,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(
+                child: Center(
+                  child: Text(
+                    categoryName,
+                    style: TextStyle(fontSize: 20, color: Colors.black),
                   ),
                 ),
               ),
-            ),
-          ],
+              Padding(
+                padding: EdgeInsets.all(10.0), // Add padding around the image
+                child: Container(
+                  width: 100,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle, // Change to circle
+                    image: DecorationImage(
+                      image: AssetImage(imagePath),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

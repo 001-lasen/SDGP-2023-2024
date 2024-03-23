@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: EdgeInsets.all(10), // Added a Padding to create a gap between the text and the edge of the screen
               child: Text(
-                'I spent half an hour changing the size of the wrong image!!!',
+                'Firebase can bow down to the power of moi!',
                 textAlign: TextAlign.center,
               ),
             ),
