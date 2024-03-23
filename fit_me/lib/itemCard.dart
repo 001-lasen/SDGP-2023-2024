@@ -112,6 +112,7 @@ class _ItemCardState extends State<ItemCard> {
                   child: Text('Add to Closet'),
                 ),
               ),
+              SizedBox(height: 100),
             ],
           ),
         ),

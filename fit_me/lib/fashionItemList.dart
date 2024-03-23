@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'itemCard.dart';
 
 class FashionItemList extends StatelessWidget {
   final String keyword;
@@ -29,9 +30,7 @@ class FashionItemList extends StatelessWidget {
           return ListView(
             children: snapshot.data!.docs.map((DocumentSnapshot document) {
               Map<String, dynamic> data = document.data() as Map<String, dynamic>;
-              return _categoryButton(data['itemName'], data['imagePath'], () {
-                // Handle button press
-              });
+              return _categoryButton(context, data['itemName'], data['imagePath']);
             }).toList(),
           );
         },
@@ -39,11 +38,21 @@ class FashionItemList extends StatelessWidget {
     );
   }
 
-  Widget _categoryButton(String itemName, String imagePath, VoidCallback onPressed) {
+  Widget _categoryButton(BuildContext context, String itemName, String imagePath) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 10.0), // Add vertical space
       child: ElevatedButton(
-        onPressed: onPressed,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ItemCard(
+                name: itemName,
+                collectionGroup: keyword,
+              ),
+            ),
+          );
+        },
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.all(16.0),
           backgroundColor: Colors.white,

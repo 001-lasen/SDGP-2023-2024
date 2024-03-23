@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'fashionItemList.dart';
 
 class WomenensClothingCat extends StatefulWidget {
   @override
@@ -56,13 +57,13 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 15),
-              _categoryButton("Blouses", "imgs/blouse.jpeg", () {}),
+              _categoryButton("Blouses", "imgs/blouse.jpeg"),
               SizedBox(height: 15),
-              _categoryButton("Jeans", "imgs/jean.jpeg", () {}),
+              _categoryButton("Jeans", "imgs/jean.jpeg"),
               SizedBox(height: 15),
-              _categoryButton("Skirts", "imgs/skirt.jpeg", () {}),
+              _categoryButton("Skirts", "imgs/skirt.jpeg"),
               SizedBox(height: 15),
-              _categoryButton("Dresses", "imgs/dress.jpeg", () {}),
+              _categoryButton("Dresses", "imgs/dress.jpeg"),
               SizedBox(height: 15),
               // Add other category buttons here
             ],
@@ -72,10 +73,19 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
     );
   }
 
-  Widget _categoryButton(String categoryName, String imagePath, VoidCallback onPressed) {
+  Widget _categoryButton(String categoryName, String imagePath) {
     if (searchText.isEmpty || categoryName.toLowerCase().contains(searchText.toLowerCase())) {
       return ElevatedButton(
-        onPressed: onPressed,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FashionItemList(
+                keyword: categoryName,
+              ),
+            ),
+          );
+        },
         style: ElevatedButton.styleFrom(
           padding: EdgeInsets.all(16.0),
           backgroundColor: Colors.white,

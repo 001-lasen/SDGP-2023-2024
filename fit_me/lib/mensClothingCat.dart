@@ -57,7 +57,7 @@ class _MensClothingCatState extends State<MensClothingCat> {
             children: [
               _categoryButton("T-shirts", "imgs/shirts.jpeg"),
               SizedBox(height: 15),
-              _categoryButton("Jeans", "imgs/trousers.jpeg"),
+              _categoryButton("Trousers", "imgs/trousers.jpeg"),
               SizedBox(height: 15),
               _categoryButton("Sunglasses", "imgs/shirts.jpeg"),
               SizedBox(height: 15),
