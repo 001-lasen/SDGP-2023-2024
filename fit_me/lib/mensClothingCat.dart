@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'fashionItemList.dart';
 
 class MensClothingCat extends StatefulWidget {
   @override
@@ -54,13 +55,13 @@ class _MensClothingCatState extends State<MensClothingCat> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              _categoryButton("Hoodies", "imgs/hoodies.jpeg"),
+              _categoryButton("T-shirts", "imgs/shirts.jpeg"),
               SizedBox(height: 15),
-              _categoryButton("Trousers", "imgs/trousers.jpeg"),
+              _categoryButton("Jeans", "imgs/trousers.jpeg"),
               SizedBox(height: 15),
-              _categoryButton("Shirts", "imgs/shirts.jpeg"),
+              _categoryButton("Sunglasses", "imgs/shirts.jpeg"),
               SizedBox(height: 15),
-              _categoryButton("Jackets", "imgs/jackets.jpeg"),
+              _categoryButton("Watches", "imgs/jackets.jpeg"),
               SizedBox(height: 15),
               _categoryButton("Suits", "imgs/suits.jpeg"),
               SizedBox(height: 15),
@@ -77,7 +78,12 @@ class _MensClothingCatState extends State<MensClothingCat> {
         width: double.infinity,
         child: ElevatedButton(
           onPressed: () {
-            // Handle button press
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => FashionItemList(keyword: categoryName),
+              ),
+            );
           },
           style: ElevatedButton.styleFrom(
             padding: EdgeInsets.all(16.0),
@@ -95,10 +101,13 @@ class _MensClothingCatState extends State<MensClothingCat> {
                   ),
                 ),
               ),
-              Image.asset(
-                imagePath,
-                width: 100, // Adjust image width as needed
-                height: 100, // Adjust image height as needed
+              ClipOval(
+                child: Image.asset(
+                  imagePath,
+                  width: 100, // Adjust image width as needed
+                  height: 100, // Adjust image height as needed
+                  fit: BoxFit.cover, // Make sure the image covers the entire circle
+                ),
               ),
             ],
           ),

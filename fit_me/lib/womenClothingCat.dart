@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'BlouseScreen.dart';
-import 'JeansScreen.dart';
-import 'SkirtScreen.dart';
-import 'DressScreen.dart';
-
 class WomenensClothingCat extends StatefulWidget {
   @override
   _WomenensClothingCatState createState() => _WomenensClothingCatState();
@@ -54,40 +49,20 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
           ),
         ),
       ),
-      body: SingleChildScrollView( // Wrap your ListView with SingleChildScrollView
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(10.0), // Add padding to create space between the page name and the buttons
+          padding: const EdgeInsets.all(10.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SizedBox(height: 15),
-              _categoryButton("Blouses", "imgs/blouse.jpeg", () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => BlouseScreen()), // Navigate to BlouseScreen
-                );
-              }),
+              _categoryButton("Blouses", "imgs/blouse.jpeg", () {}),
               SizedBox(height: 15),
-              _categoryButton("Jeans", "imgs/jean.jpeg", () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => JeansScreen()), // Navigate to JeansScreen
-                );
-              }),
+              _categoryButton("Jeans", "imgs/jean.jpeg", () {}),
               SizedBox(height: 15),
-              _categoryButton("Skirts", "imgs/skirt.jpeg", () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => SkirtScreen()), // Navigate to SkirtScreen
-                );
-              }),
+              _categoryButton("Skirts", "imgs/skirt.jpeg", () {}),
               SizedBox(height: 15),
-              _categoryButton("Dresses", "imgs/dress.jpeg", () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => DressScreen()), // Navigate to DressScreen
-                );
-              }),
+              _categoryButton("Dresses", "imgs/dress.jpeg", () {}),
               SizedBox(height: 15),
               // Add other category buttons here
             ],
@@ -117,10 +92,13 @@ class _WomenensClothingCatState extends State<WomenensClothingCat> {
                 ),
               ),
             ),
-            Image.asset(
-              imagePath,
-              width: 100,
-              height: 100,
+            ClipOval(
+              child: Image.asset(
+                imagePath,
+                width: 100,
+                height: 100,
+                fit: BoxFit.cover, // Make sure the image covers the entire circle
+              ),
             ),
           ],
         ),

@@ -17,7 +17,10 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      return web;
+      throw UnsupportedError(
+        'DefaultFirebaseOptions have not been configured for web - '
+        'you can reconfigure this by running the FlutterFire CLI again.',
+      );
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -25,7 +28,10 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        return macos;
+        throw UnsupportedError(
+          'DefaultFirebaseOptions have not been configured for macos - '
+          'you can reconfigure this by running the FlutterFire CLI again.',
+        );
       case TargetPlatform.windows:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for windows - '
@@ -43,16 +49,6 @@ class DefaultFirebaseOptions {
     }
   }
 
-  static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCIoutjGZHFrdV09oStgUznP5Smo71I7Nk',
-    appId: '1:26746184429:web:765c42bc9bc9f5c9a862e4',
-    messagingSenderId: '26746184429',
-    projectId: 'wardrobe-17f2d',
-    authDomain: 'wardrobe-17f2d.firebaseapp.com',
-    storageBucket: 'wardrobe-17f2d.appspot.com',
-    measurementId: 'G-TPCMSBZSMY',
-  );
-
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAuiMCA1CXgmB5y-hKEoaynIIm6CWz_qEY',
     appId: '1:26746184429:android:d21b956b6e26bfaca862e4',
@@ -68,14 +64,5 @@ class DefaultFirebaseOptions {
     projectId: 'wardrobe-17f2d',
     storageBucket: 'wardrobe-17f2d.appspot.com',
     iosBundleId: 'com.example.fitMe',
-  );
-
-  static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCQ3XrvtSVfExAohwuQy3Uw0MTNamZ826g',
-    appId: '1:26746184429:ios:9a3d31f3e0b19dd2a862e4',
-    messagingSenderId: '26746184429',
-    projectId: 'wardrobe-17f2d',
-    storageBucket: 'wardrobe-17f2d.appspot.com',
-    iosBundleId: 'com.example.fitMe.RunnerTests',
   );
 }

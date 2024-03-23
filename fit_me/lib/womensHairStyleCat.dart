@@ -136,15 +136,17 @@ class _WomesHairStyleCatState extends State<WomesHairStyleCat> {
                 ),
               ),
             ),
-            Container(
-              width: 100,
-              height: 100,
-              decoration: BoxDecoration(
-                shape: BoxShape.rectangle,
-                borderRadius: BorderRadius.circular(10.0),
-                image: DecorationImage(
-                  image: AssetImage(imagePath),
-                  fit: BoxFit.cover,
+            Padding(
+              padding: EdgeInsets.all(10.0), // Add padding around the image
+              child: Container(
+                width: 100,
+                height: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle, // Change to circle
+                  image: DecorationImage(
+                    image: AssetImage(imagePath),
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
             ),
