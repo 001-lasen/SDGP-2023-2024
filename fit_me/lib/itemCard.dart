@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'arcorepage.dart';
+import 'closet.dart';
 import 'package:collection/collection.dart';
 
 class ItemCard extends StatefulWidget {
@@ -107,7 +108,10 @@ class _ItemCardState extends State<ItemCard> {
                 height: 50.0,
                 child: ElevatedButton(
                   onPressed: () {
-                    // Add your code here
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Closet()),
+                    );
                   },
                   child: Text('Add to Closet'),
                 ),
