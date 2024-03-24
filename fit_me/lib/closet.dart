@@ -18,7 +18,7 @@ class ClosetState extends State<Closet> {
         preferredSize: Size.fromHeight(110.0),
         child: AppBar(
           backgroundColor: Color.fromARGB(255, 238, 2, 187),
-          title: Text('Find your category!'),
+          title: Text('Welcome to your closet!'),
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(68.0),
             child: Padding(
