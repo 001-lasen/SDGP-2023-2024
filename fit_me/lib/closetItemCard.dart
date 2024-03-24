@@ -4,17 +4,17 @@ import 'arcorepage.dart';
 import 'closet.dart';
 import 'package:collection/collection.dart';
 
-class ItemCard extends StatefulWidget {
+class ClosetItemCard extends StatefulWidget {
   final String name;
   final String collectionGroup;
 
-  ItemCard({required this.name, required this.collectionGroup});
+  ClosetItemCard({required this.name, required this.collectionGroup});
 
   @override
-  _ItemCardState createState() => _ItemCardState();
+  _ClosetItemCardState createState() => _ClosetItemCardState();
 }
 
-class _ItemCardState extends State<ItemCard> {
+class _ClosetItemCardState extends State<ClosetItemCard> {
   late Future<QuerySnapshot> _future;
 
   @override
@@ -102,53 +102,19 @@ class _ItemCardState extends State<ItemCard> {
                                       .where('itemNo', isEqualTo: data['itemNo'])
                                       .get();
 
-                                  // If a document with the same itemNo exists, show a different message.
+                                  // If a document with the same itemNo exists, delete it.
                                   if (querySnapshot.docs.isNotEmpty) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('Item is already in your closet!'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              child: Text('OK'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: Text('View Closet'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => Closet()),
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  } else {
-                                    // Write the item to the 'closet' collection.
-                                    await FirebaseFirestore.instance.collection('closet').doc(data['itemName']).set(data);
+                                    await FirebaseFirestore.instance.collection('closet').doc(querySnapshot.docs.first.id).delete();
 
                                     // Show a dialog box.
                                     showDialog(
                                       context: context,
                                       builder: (BuildContext context) {
                                         return AlertDialog(
-                                          title: Text('Item added to your closet.'),
+                                          title: Text('Item removed from your closet!'),
                                           actions: <Widget>[
                                             TextButton(
                                               child: Text('OK'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: Text('View Closet'),
                                               onPressed: () {
                                                 Navigator.of(context).pop();
                                                 Navigator.push(
@@ -163,7 +129,7 @@ class _ItemCardState extends State<ItemCard> {
                                     );
                                   }
                                 },
-                                child: Text('Add to Closet'),
+                                child: Text('Remove from Closet'),
                               ),
                             ),
                             SizedBox(height: 100),
