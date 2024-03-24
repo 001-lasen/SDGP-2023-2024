@@ -45,130 +45,135 @@ class _ItemCardState extends State<ItemCard> {
                     final doc = snapshot.data!.docs.firstWhereOrNull((doc) => doc.id == widget.name);
                     if (doc != null) {
                       Map<String, dynamic> data = doc.data() as Map<String, dynamic>;
-                      return Container(
-                        padding: EdgeInsets.all(10),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 238, 2, 187),
-                          border: Border.all(color: Color.fromARGB(255, 238, 2, 187)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            ClipRRect(
-                              borderRadius: BorderRadius.circular(10.0),
-                              child: Image.asset(data['imagePath']),
+                      return Column(
+                        children: <Widget>[
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 238, 2, 187),
+                              border: Border.all(color: Color.fromARGB(255, 238, 2, 187)),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                            SizedBox(height: 10),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                widget.name,
-                                style: TextStyle(
-                                  fontSize: 24,
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(10.0),
+                                  child: Image.asset(data['imagePath']),
                                 ),
-                              ),
+                                SizedBox(height: 10),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(
+                                    widget.name,
+                                    style: TextStyle(
+                                      fontSize: 24,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(height: 10),
+                                Align(
+                                  alignment: Alignment.centerLeft,
+                                  child: Text(data['description'], style: TextStyle(fontSize: 18, color: Colors.white)),
+                                ),
+                                SizedBox(height: 20),
+                              ],
                             ),
-                            SizedBox(height: 10),
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(data['description'], style: TextStyle(fontSize: 18, color: Colors.white)),
+                          ),
+                          SizedBox(height: 20), // Increase the space here
+                          Container(
+                            width: 200.0,
+                            height: 50.0,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => ARCorePage()),
+                                );
+                              },
+                              child: Text('Try On'),
                             ),
-                            SizedBox(height: 20),
-                            Container(
-                              width: 200.0,
-                              height: 50.0,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => ARCorePage()),
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            width: 200.0,
+                            height: 50.0,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                // Query the 'closet' collection for a document with the same itemNo as the item.
+                                final querySnapshot = await FirebaseFirestore.instance
+                                    .collection('closet')
+                                    .where('itemNo', isEqualTo: data['itemNo'])
+                                    .get();
+
+                                // If a document with the same itemNo exists, show a different message.
+                                if (querySnapshot.docs.isNotEmpty) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Item is already in your closet!'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: Text('OK'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          TextButton(
+                                            child: Text('View Closet'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => Closet()),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
                                   );
-                                },
-                                child: Text('Try On'),
-                              ),
-                            ),
-                            SizedBox(height: 10),
-                            Container(
-                              width: 200.0,
-                              height: 50.0,
-                              child: ElevatedButton(
-                                onPressed: () async {
-                                  // Query the 'closet' collection for a document with the same itemNo as the item.
-                                  final querySnapshot = await FirebaseFirestore.instance
-                                      .collection('closet')
-                                      .where('itemNo', isEqualTo: data['itemNo'])
-                                      .get();
+                                } else {
+                                  // Write the item to the 'closet' collection.
+                                  await FirebaseFirestore.instance.collection('closet').doc(data['itemName']).set(data);
 
-                                  // If a document with the same itemNo exists, show a different message.
-                                  if (querySnapshot.docs.isNotEmpty) {
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('Item is already in your closet!'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              child: Text('OK'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: Text('View Closet'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => Closet()),
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  } else {
-                                    // Write the item to the 'closet' collection.
-                                    await FirebaseFirestore.instance.collection('closet').doc(data['itemName']).set(data);
-
-                                    // Show a dialog box.
-                                    showDialog(
-                                      context: context,
-                                      builder: (BuildContext context) {
-                                        return AlertDialog(
-                                          title: Text('Item added to your closet.'),
-                                          actions: <Widget>[
-                                            TextButton(
-                                              child: Text('OK'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                              },
-                                            ),
-                                            TextButton(
-                                              child: Text('View Closet'),
-                                              onPressed: () {
-                                                Navigator.of(context).pop();
-                                                Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(builder: (context) => Closet()),
-                                                );
-                                              },
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  }
-                                },
-                                child: Text('Add to Closet'),
-                              ),
+                                  // Show a dialog box.
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: Text('Item added to your closet.'),
+                                        actions: <Widget>[
+                                          TextButton(
+                                            child: Text('OK'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                            },
+                                          ),
+                                          TextButton(
+                                            child: Text('View Closet'),
+                                            onPressed: () {
+                                              Navigator.of(context).pop();
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(builder: (context) => Closet()),
+                                              );
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              child: Text('Add to Closet'),
                             ),
-                            SizedBox(height: 100),
-                          ],
-                        ),
+                          ),
+                          SizedBox(height: 100),
+                        ],
                       );
                     } else {
                       return Text("Document not found");
