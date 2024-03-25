@@ -33,7 +33,9 @@ dependencies:
   collection: ^1.18.0
   cupertino_icons: ^1.0.2
   firebase_core: ^2.27.0
-  cloud_firestore: ^4.15.8  # Add this line
+  cloud_firestore: ^4.15.8 
+  webview_flutter: ^4.6.0
+  url_launcher: ^6.0.13
 
 dev_dependencies:
   flutter_test:

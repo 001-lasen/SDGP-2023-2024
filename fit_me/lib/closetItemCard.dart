@@ -82,11 +82,13 @@ class _ClosetItemCardState extends State<ClosetItemCard> {
                               height: 50.0,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(builder: (context) => ARCorePage()),
-                                  );
-                                },
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => ArcorePage(),
+                                  ),
+                                );
+                              },
                                 child: Text('Try On'),
                               ),
                             ),

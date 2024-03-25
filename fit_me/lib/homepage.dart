@@ -125,7 +125,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Padding(
               padding: EdgeInsets.all(10), // Added a Padding to create a gap between the text and the edge of the screen
               child: Text(
-                'Brain.exe not found. Please try again later.',
+                'Ane sir api mithuran wei..do..',
                 textAlign: TextAlign.center,
               ),
             ),

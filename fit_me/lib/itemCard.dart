@@ -90,7 +90,9 @@ class _ItemCardState extends State<ItemCard> {
                               onPressed: () {
                                 Navigator.push(
                                   context,
-                                  MaterialPageRoute(builder: (context) => ARCorePage()),
+                                  MaterialPageRoute(
+                                    builder: (context) => ArcorePage(),
+                                  ),
                                 );
                               },
                               child: Text('Try On'),
